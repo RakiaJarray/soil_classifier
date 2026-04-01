@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-import tensorflow as tf
+import tf_keras as keras
 from PIL import Image
 
 st.set_page_config(
@@ -11,7 +11,7 @@ st.set_page_config(
 
 @st.cache_resource
 def load_model():
-    model = tf.keras.models.load_model("best_soil.keras")
+    model = keras.models.load_model("best_soil.keras")
     return model
 
 model = load_model()
@@ -47,7 +47,7 @@ if uploaded_file is not None:
     with st.spinner("Analyse en cours..."):
         img = image.resize((224, 224))
         arr = np.array(img, dtype=np.float32)
-        arr = tf.keras.applications.efficientnet.preprocess_input(arr)
+        arr = keras.applications.efficientnet.preprocess_input(arr)
         arr = np.expand_dims(arr, axis=0)
         predictions = model.predict(arr)[0]
         top3_idx = np.argsort(predictions)[::-1][:3]
