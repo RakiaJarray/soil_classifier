@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-import tf_keras as keras
+from tensorflow import keras
 from PIL import Image
 
 st.set_page_config(
